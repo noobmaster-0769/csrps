@@ -46,4 +46,15 @@ app.listen(PORT, () => {
   console.log(`\n🚀 CSRPS Backend running on http://localhost:${PORT}`);
   console.log(`   Environment : ${process.env.NODE_ENV || 'development'}`);
   console.log(`   DaaS APIs   : http://localhost:${PORT}/api/*\n`);
+
+  // ── Keep-alive ping (prevents Railway free tier cold starts) ───────────────
+  if (process.env.NODE_ENV === 'production') {
+    const BACKEND_URL = `https://csrps-production.up.railway.app`;
+    setInterval(() => {
+      fetch(BACKEND_URL)
+        .then(() => console.log('🏓 Keep-alive ping sent'))
+        .catch(() => {});
+    }, 14 * 60 * 1000); // every 14 minutes
+    console.log('   Keep-alive : enabled (pings every 14 min)\n');
+  }
 });
