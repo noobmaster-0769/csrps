@@ -49,7 +49,7 @@ app.listen(PORT, () => {
 
   // ── Keep-alive ping (prevents Railway free tier cold starts) ───────────────
   if (process.env.NODE_ENV === 'production') {
-    const BACKEND_URL = `https://csrps-production.up.railway.app`;
+    const BACKEND_URL = `https://csrps-backend.onrender.com`;
     setInterval(() => {
       fetch(BACKEND_URL)
         .then(() => console.log('🏓 Keep-alive ping sent'))
